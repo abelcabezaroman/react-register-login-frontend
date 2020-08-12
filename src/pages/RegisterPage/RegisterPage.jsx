@@ -1,17 +1,22 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+import { API } from "../../shared/services/api";
 
 export const RegisterPage = () => {
     const { register, handleSubmit } = useForm();
 
-    console.log('##ABEL## >> process.env.URL >>  RegisterPage', process.env.REACT_APP_BACK_URL);
+    // const user = {
+    //     name: 'Abel',
+    //     username: 'abelcabezaroman',
+    //     email: 'contacto@abelcabezaroman.com',
+    //     password: 'ABCedf123'
+    // }
+
     const onSubmit = formData => {
-        console.log('##ABEL## >> formData >>  onSubmit', formData);
-        axios.post(process.env.REACT_APP_BACK_URL + 'register', formData).then(res => {
-            console.log('##ABEL## >> res >>  res', res);
+        API.post('register', formData).then(res => {
         })
     }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -19,14 +24,18 @@ export const RegisterPage = () => {
             {/* register your input into the hook by invoking the "register" function */}
             <label htmlFor="name">Name</label>
             <input name="name" id="name" defaultValue="Abel Cabeza Román"
-                   ref={register({ required: true})}/>
+                   ref={register({ required: true })}/>
+
+            <input name="role" id="role" defaultValue="admin"
+                   ref={register({ required: true })}/>
 
             <label htmlFor="email">Email</label>
             <input name="email" id="email" defaultValue="contacto@abelcabezaroman.com"
                    ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
 
             <label htmlFor="username">Username</label>
-            <input name="username" id="username" defaultValue="abelcabezaroman" ref={register({ required: true, minLength: 4 })}/>
+            <input name="username" id="username" defaultValue="abelcabezaroman"
+                   ref={register({ required: true, minLength: 4 })}/>
 
             {/* include validation with required or other standard HTML validation rules */}
             <label htmlFor="password">Password</label>

@@ -1,18 +1,15 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import { fakeAuth } from "../../shared/components/AuthButton/AuthButton";
+import { API } from "../../shared/services/api";
 
 export const LoginPage = (props) => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = formData => {
-        console.log('##ABEL## >> formData >>  onSubmit', formData);
-        axios.post(process.env.REACT_APP_BACK_URL + 'login', formData).then(res => {
+        API.post('login', formData).then(res => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
             props.fnSetIsLogged(true);
-            console.log('##ABEL## >> res >>  res', res);
         })
     }
 

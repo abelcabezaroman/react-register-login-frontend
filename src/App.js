@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { RegisterPage } from "./pages/RegisterPage/LoginPage";
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
-import HelloUser from "./pages/HelloUser/HelloUser";
+import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
+import { BrowserRouter as Router, Link, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./shared/components/PrivateRoute/PrivateRoute";
 import AuthButton from "./shared/components/AuthButton/AuthButton";
+import UsersPage from "./pages/UsersPage/HelloUser";
+import HelloUserPage from "./pages/HelloUserPage/HelloUserPage";
 
 function App () {
     const [isLogged, setIsLogged] = useState(!!localStorage.getItem('token'));
@@ -17,6 +18,9 @@ function App () {
 
                     <nav>
                         <Link to="/hello-user">Private Route</Link>
+                        <Link to="/users">Users</Link>
+                        <Link to="/register">Register</Link>
+                        <Link to="/login">Login</Link>
                     </nav>
 
 
@@ -25,7 +29,10 @@ function App () {
                             <RegisterPage/>
                         </Route>
                         <PrivateRoute path="/hello-user">
-                            <HelloUser/>
+                            <HelloUserPage/>
+                        </PrivateRoute>
+                        <PrivateRoute path="/users">
+                            <UsersPage/>
                         </PrivateRoute>
                         <Route path="/login">
                             <LoginPage isLogged={isLogged} fnSetIsLogged={setIsLogged}/>
