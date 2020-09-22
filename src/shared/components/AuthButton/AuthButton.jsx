@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 export default function AuthButton (props) {
     let history = useHistory();
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const signOut = () => {
         localStorage.removeItem('token');
@@ -11,9 +12,10 @@ export default function AuthButton (props) {
         props.fnSetIsLogged(false);
         history.push("/");
     }
+
     return props.isLogged ? (
         <p>
-            Welcome!{" "}
+            Welcome! {user.name}
             <button
                 onClick={signOut}
             >

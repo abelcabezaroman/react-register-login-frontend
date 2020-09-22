@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { API } from "../../shared/services/api";
 
-export const LoginPage = (props) => {
+export default function LoginPage(props) {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = formData => {
