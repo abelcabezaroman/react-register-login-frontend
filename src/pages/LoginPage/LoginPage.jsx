@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
 import { useForm } from "react-hook-form";
-import { IsLoggedContext } from '../../shared/contexts/IsLoggedContext';
+import { JwtContext } from '../../shared/contexts/JwtContext';
 import { API } from "../../shared/services/api";
 
 export default function LoginPage(props) {
     const { register, handleSubmit } = useForm();
-    const {setIsLogged} = useContext(IsLoggedContext);
+    const {setJwt} = useContext(JwtContext);
 
     const onSubmit = formData => {
         API.post('login', formData).then(res => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
-            setIsLogged(true);
+            setJwt(res.data.token);
         })
     }
 

@@ -1,22 +1,22 @@
 import React from "react";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { IsLoggedContext } from "../../contexts/IsLoggedContext";
+import { JwtContext } from "../../contexts/JwtContext";
 
 
 export default function AuthButton () {
-    const {isLogged, setIsLogged} = useContext(IsLoggedContext);
+    const {jwt, setJwt} = useContext(JwtContext);
     let history = useHistory();
     const user = JSON.parse(localStorage.getItem('user'));
 
     const signOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setIsLogged(false);
+        setJwt(null);
         history.push("/");
     }
 
-    return isLogged ? (
+    return jwt ? (
         <p>
             Welcome! {user.name}
             <button

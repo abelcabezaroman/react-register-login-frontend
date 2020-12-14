@@ -7,45 +7,45 @@ import PrivateRoute from "./shared/components/PrivateRoute/PrivateRoute";
 import AuthButton from "./shared/components/AuthButton/AuthButton";
 import UsersPage from "./pages/UsersPage/HelloUser";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import { IsLoggedContext } from './shared/contexts/IsLoggedContext';
+import { JwtContext } from './shared/contexts/JwtContext';
 
-function App() {
-    const [isLogged, setIsLogged] = useState(!!localStorage.getItem('token'));
+function App () {
+    const [jwt, setJwt] = useState(localStorage.getItem('token') || null);
 
     return (
-        <IsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
+        <JwtContext.Provider value={{ jwt, setJwt }}>
             <div className="App">
                 <div className="App-header">
                     <Router>
-                        <AuthButton />
+                        <AuthButton/>
 
                         <nav>
-                            {isLogged && <Link className="b-btn" to="/hello-user">Profile</Link>}
-                            {isLogged && <Link className="b-btn" to="/users">Users</Link>}
+                            {jwt && <Link className="b-btn" to="/hello-user">Profile</Link>}
+                            {jwt && <Link className="b-btn" to="/users">Users</Link>}
                             <Link className="b-btn" to="/register">Register</Link>
-                            {!isLogged && <Link className="b-btn" to="/login">Login</Link>}
+                            {!jwt && <Link className="b-btn" to="/login">Login</Link>}
                         </nav>
 
 
                         <Switch>
                             <Route path="/register">
-                                <RegisterPage />
+                                <RegisterPage/>
                             </Route>
                             <PrivateRoute path="/profile">
-                                <ProfilePage />
+                                <ProfilePage/>
                             </PrivateRoute>
                             <PrivateRoute path="/users">
-                                <UsersPage />
+                                <UsersPage/>
                             </PrivateRoute>
                             <Route path="/login">
-                                <LoginPage />
+                                <LoginPage/>
                             </Route>
-                            <Redirect from="/" to="login" />
+                            <Redirect from="/" to="login"/>
                         </Switch>
                     </Router>
                 </div>
             </div>
-        </IsLoggedContext.Provider>
+        </JwtContext.Provider>
     );
 }
 
