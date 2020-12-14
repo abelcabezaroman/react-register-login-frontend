@@ -1,19 +1,22 @@
 import React from "react";
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { IsLoggedContext } from "../../contexts/IsLoggedContext";
 
 
-export default function AuthButton (props) {
+export default function AuthButton () {
+    const {isLogged, setIsLogged} = useContext(IsLoggedContext);
     let history = useHistory();
     const user = JSON.parse(localStorage.getItem('user'));
 
     const signOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        props.fnSetIsLogged(false);
+        setIsLogged(false);
         history.push("/");
     }
 
-    return props.isLogged ? (
+    return isLogged ? (
         <p>
             Welcome! {user.name}
             <button

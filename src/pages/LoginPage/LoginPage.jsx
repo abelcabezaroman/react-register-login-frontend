@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from "react-hook-form";
+import { IsLoggedContext } from '../../shared/contexts/IsLoggedContext';
 import { API } from "../../shared/services/api";
 
 export default function LoginPage(props) {
     const { register, handleSubmit } = useForm();
+    const {setIsLogged} = useContext(IsLoggedContext);
 
     const onSubmit = formData => {
         API.post('login', formData).then(res => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
-            props.fnSetIsLogged(true);
+            setIsLogged(true);
         })
     }
 
