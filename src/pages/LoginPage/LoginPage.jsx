@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { JwtContext } from '../../shared/contexts/JwtContext';
 import { API } from "../../shared/services/api";
 
-export default function LoginPage(props) {
+export default function LoginPage() {
     const { register, handleSubmit } = useForm();
     const {setJwt} = useContext(JwtContext);
 
