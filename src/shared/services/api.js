@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookieUtil } from "../utils/getCookieUtil";
 
 export const APIHeaders = {
     'Accept': 'application/json',
@@ -6,7 +7,7 @@ export const APIHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Authorization': {
         toString () {
-            return `Bearer ${localStorage.getItem('token')}`
+            return `Bearer ${getCookieUtil('token')}`
         }
     }
 };

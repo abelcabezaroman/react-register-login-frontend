@@ -1,12 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import { getCookieUtil } from "../../utils/getCookieUtil";
 
 export default function PrivateRoute ({ children, ...rest }) {
     return (
         <Route
             {...rest}
             render={({ location }) =>
-                localStorage.getItem('token') ? (
+                getCookieUtil('token') ? (
                     children
                 ) : (
                     <Redirect

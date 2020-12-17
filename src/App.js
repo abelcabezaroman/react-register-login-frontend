@@ -8,12 +8,15 @@ import AuthButton from "./shared/components/AuthButton/AuthButton";
 import UsersPage from "./pages/UsersPage/HelloUser";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { JwtContext } from './shared/contexts/JwtContext';
+import { getCookieUtil } from "./shared/utils/getCookieUtil";
 
 function App () {
-    const [jwt, setJwt] = useState(localStorage.getItem('token') || null);
+    console.log('##ABEL## >> App >>  App', getCookieUtil('token') );
+    const [jwt, setJwt] = useState(getCookieUtil('token') || null);
 
     return (
-        <JwtContext.Provider value={{ jwt, setJwt }}>
+
+    <JwtContext.Provider value={{ jwt, setJwt }}>
             <div className="App">
                 <div className="App-header">
                     <Router>
@@ -46,7 +49,8 @@ function App () {
                 </div>
             </div>
         </JwtContext.Provider>
-    );
+
+);
 }
 
 export default App;
