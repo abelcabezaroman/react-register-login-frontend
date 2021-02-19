@@ -7,26 +7,26 @@ import PrivateRoute from "./shared/components/PrivateRoute/PrivateRoute";
 import AuthButton from "./shared/components/AuthButton/AuthButton";
 import UsersPage from "./pages/UsersPage/HelloUser";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import { JwtContext } from './shared/contexts/JwtContext';
+import { IsLoggedContext } from './shared/contexts/IsLoggedContext';
 import { getCookieUtil } from "./shared/utils/getCookieUtil";
 
 function App () {
     console.log('##ABEL## >> App >>  App', getCookieUtil('token') );
-    const [jwt, setJwt] = useState(getCookieUtil('token') || null);
+    const [isLogged, setIsLogged] = useState(!!getCookieUtil('token'));
 
     return (
 
-    <JwtContext.Provider value={{ jwt, setJwt }}>
+    <IsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
             <div className="App">
                 <div className="App-header">
                     <Router>
                         <AuthButton/>
 
                         <nav>
-                            {jwt && <Link className="b-btn" to="/hello-user">Profile</Link>}
-                            {jwt && <Link className="b-btn" to="/users">Users</Link>}
+                            {isLogged && <Link className="b-btn" to="/profile">Profile</Link>}
+                            {isLogged && <Link className="b-btn" to="/users">Users</Link>}
                             <Link className="b-btn" to="/register">Register</Link>
-                            {!jwt && <Link className="b-btn" to="/login">Login</Link>}
+                            {!isLogged && <Link className="b-btn" to="/login">Login</Link>}
                         </nav>
 
 
@@ -48,7 +48,7 @@ function App () {
                     </Router>
                 </div>
             </div>
-        </JwtContext.Provider>
+        </IsLoggedContext.Provider>
 
 );
 }
