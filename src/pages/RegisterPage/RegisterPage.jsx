@@ -1,10 +1,13 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { API } from "../../shared/services/api";
+import {useHistory} from 'react-router-dom'
 
 export default function RegisterPage () {
     const { register, handleSubmit } = useForm();
 
+    const history = useHistory();
+    
     // const user = {
     //     name: 'Abel',
     //     username: 'abelcabezaroman',
@@ -15,6 +18,7 @@ export default function RegisterPage () {
     const onSubmit = formData => {
         API.post('register', formData).then(res => {
             console.log('Register user',);
+            history.push('/login')
         })
     }
 
